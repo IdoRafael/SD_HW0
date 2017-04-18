@@ -1,6 +1,5 @@
 package il.ac.technion.cs.sd.app;
 
-
 import il.ac.technion.cs.sd.grades.ext.LineStorage;
 
 public class Storage {
@@ -23,5 +22,4 @@ public class Storage {
             throw new RuntimeException(e);
         }
     }
-
 }

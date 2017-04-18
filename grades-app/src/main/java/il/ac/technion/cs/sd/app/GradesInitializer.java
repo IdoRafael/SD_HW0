@@ -1,7 +1,5 @@
 package il.ac.technion.cs.sd.app;
 
-import java.util.AbstractList;
-import java.util.Arrays;
 
 /** This class will be instantiated once per test. */
 public class GradesInitializer {
@@ -13,7 +11,7 @@ public class GradesInitializer {
         String[] lines = csvData.split("\\n");
         Storage storage = new Storage();
 
-        //reverse array for distinct to get last grade
+        //reverse array for distinct to get last grade instead of first
         ReversedArrayList<String> reversedLines = new ReversedArrayList<>(lines);
 
         reversedLines
