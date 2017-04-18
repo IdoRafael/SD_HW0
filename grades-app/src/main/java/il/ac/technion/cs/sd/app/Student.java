@@ -2,13 +2,17 @@ package il.ac.technion.cs.sd.app;
 
 
 public class Student implements Comparable<Student> {
-    private String id;
-    private String grade;
+    private String id = "";
+    private String grade = "";
 
     public Student(String idAndGradeCSV) {
-        String[] details = idAndGradeCSV.split(",");
-        this.setId(details[0]);
-        this.setGrade(details[1]);
+        try {
+            String[] details = idAndGradeCSV.split(",");
+            this.setId(details[0]);
+            this.setGrade(details[1]);
+        } catch (Exception e) {
+            System.out.print("lolz");
+        }
     }
 
     public void setId(String id) {

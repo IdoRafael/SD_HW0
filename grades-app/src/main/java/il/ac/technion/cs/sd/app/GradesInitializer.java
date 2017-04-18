@@ -12,6 +12,8 @@ public class GradesInitializer {
     public void setup(String csvData) {
         String[] lines = csvData.split("\\n");
         Storage storage = new Storage();
+
+        //reverse array for distinct to get last grade
         ReversedArrayList<String> reversedLines = new ReversedArrayList<>(lines);
 
         reversedLines
