@@ -6,12 +6,12 @@ public class Student implements Comparable<Student> {
     private String grade = "";
 
     public Student(String idAndGradeCSV) {
-        try {
-            String[] details = idAndGradeCSV.split(",");
-            this.setId(details[0]);
-            this.setGrade(details[1]);
-        } catch (Exception e) {
-            System.out.print("lolz");
+        String[] details = idAndGradeCSV.split(",");
+        if (details.length >= 1) {
+            this.id = details[0];
+        }
+        if (details.length >= 2) {
+            this.grade = details[1];
         }
     }
 

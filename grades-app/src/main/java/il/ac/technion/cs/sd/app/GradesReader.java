@@ -9,9 +9,18 @@ import java.util.OptionalInt;
  * {@link il.ac.technion.cs.sd.app.GradesInitializer#setup(java.lang.String) has been called}.
  */
 public class GradesReader {
+    private Storage storage;
+
+    public GradesReader() {
+        storage = new StorageImpl();
+    }
+
+    public GradesReader(Storage storage) {
+        this.storage = storage;
+    }
+
     /** Returns the grade associated with the ID, or empty. */
     public OptionalInt getGrade(String id) throws RuntimeException {
-        Storage storage = new Storage();
         int keyFound;
 
         try {
