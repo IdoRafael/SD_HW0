@@ -5,7 +5,13 @@ public class Student implements Comparable<Student> {
     private String id = "";
     private String grade = "";
 
+    public static int MAX_ID = 999999999;
+    public static int MAX_GRADE = 100;
+
     public Student(String idAndGradeCSV) {
+        if (idAndGradeCSV == null) {
+            return;
+        }
         String[] details = idAndGradeCSV.split(",");
         if (details.length >= 1) {
             this.id = details[0];
@@ -13,14 +19,6 @@ public class Student implements Comparable<Student> {
         if (details.length >= 2) {
             this.grade = details[1];
         }
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setGrade(String grade) {
-        this.grade = grade;
     }
 
     public String getGrade() {

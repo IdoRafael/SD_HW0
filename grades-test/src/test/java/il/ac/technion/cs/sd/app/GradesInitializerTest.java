@@ -6,20 +6,20 @@ import org.junit.rules.Timeout;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.OptionalInt;
+import java.util.Scanner;
 
 import static org.junit.Assert.assertEquals;
 
-public class ExampleTest {
+public class GradesInitializerTest {
 
   @Rule public Timeout globalTimeout = Timeout.seconds(10);
 
   private static GradesReader setupAndGetReader(String fileName) throws FileNotFoundException {
     String fileContents =
-        new Scanner(new File(ExampleTest.class.getResource(fileName).getFile())).useDelimiter("\\Z").next();
-    Storage storage = new StorageMock();
-    new GradesInitializer(storage).setup(fileContents);
-    return new GradesReader(storage);
+        new Scanner(new File(GradesInitializerTest.class.getResource(fileName).getFile())).useDelimiter("\\Z").next();
+    new GradesInitializer().setup(fileContents);
+    return new GradesReader();
   }
 
   @Test
