@@ -1,7 +1,7 @@
 package il.ac.technion.cs.sd.app;
 
 
-public class Student implements Comparable<Student> {
+public class Student {
     private String id = "";
     private String grade = "";
 
@@ -31,23 +31,5 @@ public class Student implements Comparable<Student> {
 
     public String toCSVString() {
         return id + "," + grade;
-    }
-
-    @Override
-    public int compareTo(Student o) {
-        return this.id.compareTo(o.id);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null || obj.getClass() != this.getClass()) {
-            return false;
-        }
-        return id.equals(((Student)obj).id);
-    }
-
-    @Override
-    public int hashCode() {
-        return id.hashCode();
     }
 }

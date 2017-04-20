@@ -25,17 +25,19 @@ public class GradesReader {
 
         try {
             keyFound = Collections.binarySearch(
-                    new AbstractList<Student>() {
+                    new AbstractList<String>() {
                         @Override
-                        public Student get(int index) {
-                            return new Student(storage.read(index));
+                        public String get(int index) {
+                            return (new Student(storage.read(index)).getId());
                         }
 
                         @Override
                         public int size() {
                             return storage.numberOfLines();
                         }
-                    }, new Student(id));
+                    }
+                    , id
+            );
         } catch (RuntimeException e) {
             throw e;
         }
