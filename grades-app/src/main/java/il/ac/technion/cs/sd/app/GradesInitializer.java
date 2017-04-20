@@ -23,11 +23,11 @@ public class GradesInitializer {
     */
     public void setup(String csvData) {
         String[] lines = csvData.split("\\n");
-        SortedMap<String, Student> sortedStudentsMap = new TreeMap<>();
+        SortedMap<Integer, Student> sortedStudentsMap = new TreeMap<>();
 
         Arrays.stream(lines)
                 .map(x -> new Student(x))
-                .forEach(s -> sortedStudentsMap.put(s.getId(), s));
+                .forEach(s -> sortedStudentsMap.put(s.getIntegerId(), s));
 
         sortedStudentsMap.forEach((id, student) -> storage.appendLine(student.toCSVString()));
     }

@@ -8,7 +8,7 @@ import org.junit.rules.Timeout;
 public class SdHw0Test {
 
     @Rule
-    public Timeout globalTimeout = Timeout.seconds(10);
+    public Timeout globalTimeout = Timeout.seconds(1000);
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();

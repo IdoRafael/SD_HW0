@@ -11,7 +11,7 @@ public class GradesInitializerTest extends GradesTest {
 
     @Test
     public void shouldRemoveDuplicates() throws Exception {
-        setupInitializer("GradesInitializerDuplicates");
+        setupInitializer("duplicates");
 
         assertEquals(1, fileMock.size());
         assertEquals("123", new Student(fileMock.getFirst()).getId());
@@ -19,28 +19,28 @@ public class GradesInitializerTest extends GradesTest {
 
     @Test
     public void shouldLeaveLastGrade() throws Exception {
-        setupInitializer("GradesInitializerDuplicates");
+        setupInitializer("duplicates");
 
         assertEquals("99", new Student(fileMock.getFirst()).getGrade());
     }
 
     @Test
     public void shouldSortById() throws Exception {
-        String fileName = "GradesApplicationLarge";
+        String fileName = "large";
 
         String fileContents = getFileContent(fileName);
         setupInitializer(fileName);
 
-        String[] expected = Arrays.stream(fileContents.split("\\n"))
-                .map(s -> new Student(s).getId())
+        Integer[] expected = Arrays.stream(fileContents.split("\\n"))
+                .map(s -> Integer.valueOf(new Student(s).getId()))
                 .distinct()
                 .sorted()
-                .toArray(String[]::new);
+                .toArray(Integer[]::new);
 
-        String[] actual = fileMock
+        Integer[] actual = fileMock
                 .stream()
-                .map(s -> new Student(s).getId())
-                .toArray(String[]::new);
+                .map(s -> Integer.valueOf(new Student(s).getId()))
+                .toArray(Integer[]::new);
 
         assertTrue(Arrays.equals(expected,actual));
     }

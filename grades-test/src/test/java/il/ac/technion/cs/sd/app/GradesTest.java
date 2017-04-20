@@ -1,5 +1,6 @@
 package il.ac.technion.cs.sd.app;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.mockito.Mockito;
@@ -32,6 +33,7 @@ public class GradesTest extends SdHw0Test {
 
     @BeforeClass
     public static void setupStorageMock() {
+        fileMock = new LinkedList<>();
         storageMock = Mockito.mock(Storage.class);
         Mockito
                 .doAnswer((invocationOnMock -> {fileMock.addLast((String)(invocationOnMock.getArguments()[0])); return null;}))
@@ -44,8 +46,8 @@ public class GradesTest extends SdHw0Test {
                 .thenAnswer(i -> fileMock.size());
     }
 
-    @Before
-    public void setUp() {
-        fileMock = new LinkedList<>();
+    @After
+    public void clear() {
+        fileMock.clear();
     }
 }
