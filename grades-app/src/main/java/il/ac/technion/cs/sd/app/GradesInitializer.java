@@ -1,6 +1,10 @@
 package il.ac.technion.cs.sd.app;
 
 
+import java.util.Arrays;
+import java.util.SortedMap;
+import java.util.TreeMap;
+
 /** This class will be instantiated once per test. */
 public class GradesInitializer {
     private Storage storage;
@@ -19,15 +23,12 @@ public class GradesInitializer {
     */
     public void setup(String csvData) {
         String[] lines = csvData.split("\\n");
+        SortedMap<String, Student> sortedMap = new TreeMap<>();
 
-        //reverse array for distinct to get last grade instead of first
-        ReversedArrayList<String> reversedLines = new ReversedArrayList<>(lines);
-
-        reversedLines
-                .stream()
+        Arrays.stream(lines)
                 .map(x -> new Student(x))
-                .distinct()
-                .sorted()
-                .forEach(s -> storage.appendLine(s.toCSVString()));
+                .forEach(s -> sortedMap.put(s.getId(), s));
+
+        sortedMap.forEach((id, student) -> storage.appendLine(student.toCSVString()));
     }
 }
