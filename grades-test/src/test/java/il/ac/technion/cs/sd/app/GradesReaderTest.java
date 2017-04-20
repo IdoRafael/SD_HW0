@@ -5,5 +5,4 @@ import org.junit.rules.Timeout;
 
 
 public class GradesReaderTest {
-  @Rule public Timeout globalTimeout = Timeout.seconds(10);
 }

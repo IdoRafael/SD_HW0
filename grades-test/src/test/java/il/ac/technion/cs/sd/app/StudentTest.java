@@ -1,21 +1,13 @@
 package il.ac.technion.cs.sd.app;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import org.junit.rules.Timeout;
 
 import java.util.Random;
 
 import static org.junit.Assert.assertEquals;
 
-public class StudentTest {
+public class StudentTest extends SdHw0Test {
     private static Random random = new Random();
-
-    @Rule
-    public Timeout globalTimeout = Timeout.seconds(10);
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void nullStringInConstructorShouldReturnEmptyIdAndGrade() throws Exception {
