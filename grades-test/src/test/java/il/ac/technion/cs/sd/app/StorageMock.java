@@ -7,7 +7,6 @@ import java.util.LinkedList;
 public class StorageMock implements Storage{
     private LinkedList<String> storage = new LinkedList<>();
 
-
     @Override
     public void appendLine(String s) {
         storage.addLast(s);
