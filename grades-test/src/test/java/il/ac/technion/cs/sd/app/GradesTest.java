@@ -19,7 +19,7 @@ public class GradesTest extends SdHw0Test {
 
     protected static GradesReader setupAndGetReader(String fileName) throws FileNotFoundException {
         String fileContents =
-                new Scanner(new File(GradesInitializerTest.class.getResource(fileName).getFile())).useDelimiter("\\Z").next();
+                new Scanner(new File(GradesTest.class.getResource(fileName).getFile())).useDelimiter("\\Z").next();
         new GradesInitializer(storageMock).setup(fileContents);
         return new GradesReader(storageMock);
     }
