@@ -16,11 +16,17 @@ public class GradesTest extends SdHw0Test {
     protected static LinkedList<String> fileMock;
     protected static Storage storageMock;
 
+    protected static String getFileContent(String fileName) throws FileNotFoundException {
+        return new Scanner(new File(GradesTest.class.getResource(fileName).getFile())).useDelimiter("\\Z").next();
+    }
 
-    protected static GradesReader setupAndGetReader(String fileName) throws FileNotFoundException {
-        String fileContents =
-                new Scanner(new File(GradesTest.class.getResource(fileName).getFile())).useDelimiter("\\Z").next();
+    protected static void setupInitializer(String fileName) throws FileNotFoundException {
+        String fileContents = getFileContent(fileName);
         new GradesInitializer(storageMock).setup(fileContents);
+    }
+
+    protected static GradesReader setupInitializerAndGetReader(String fileName) throws FileNotFoundException {
+        setupInitializer(fileName);
         return new GradesReader(storageMock);
     }
 
