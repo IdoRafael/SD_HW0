@@ -36,15 +36,6 @@ public class GradesTest extends SdHw0Test {
         return new GradesReader(storageMock);
     }
 
-    protected static GradesReader setupMaxStudentsDatabase() {
-        StringBuilder stringBuilder = new StringBuilder();
-        IntStream.range(0, MAX_STUDENTS)
-                .forEach(i -> stringBuilder.append(String.valueOf(i) + "," + String.valueOf(i % 100) + "\n"));
-        String csvData = stringBuilder.toString();
-        new GradesInitializer(storageMock).setup(csvData);
-        return new GradesReader(storageMock);
-    }
-
     @BeforeClass
     public static void setupStorageMock() {
         //appendLine
