@@ -9,12 +9,13 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class LazyEvaluationOfStorageTest extends GradesTest {
 
-    private long getAccessTime(int index) throws FileNotFoundException {
+    private long getAccessTime(int index, Storage storageMock) throws FileNotFoundException {
         LazyEvaluationOfStorage lazyEvaluationOfStorage = new LazyEvaluationOfStorage(storageMock);
 
         long start = System.nanoTime();
@@ -24,21 +25,30 @@ public class LazyEvaluationOfStorageTest extends GradesTest {
 
     @Test
     public void shouldLazyEvaluateAndNotCallRead() throws Exception {
-        setupInitializer("large");
+        ArrayList<String> fileMock = new ArrayList<>();
+        Storage storageMock = Mockito.mock(Storage.class);
+        setupStorageMock(fileMock, storageMock);
+        setupInitializer("large", storageMock);
         LazyEvaluationOfStorage lazyEvaluationOfStorage = new LazyEvaluationOfStorage(storageMock);
         Mockito.verify(storageMock, never()).read(anyInt());
     }
 
     @Test
     public void shouldAccessLastFast() throws Exception {
-        setupInitializer("veryLarge");
-        assertTrue(getAccessTime(fileMockSize - 1) <= fileMock[fileMockSize - 1].length());
+        ArrayList<String> fileMock = new ArrayList<>();
+        Storage storageMock = Mockito.mock(Storage.class);
+        setupStorageMock(fileMock, storageMock);
+        setupInitializer("veryLarge", storageMock);
+        assertTrue(getAccessTime(fileMock.size() - 1, storageMock) <= fileMock.get(fileMock.size() - 1).length());
     }
 
     @Test
     public void shouldAccessRandomlyFast() throws Exception {
-        setupInitializer("veryLarge");
-        assertTrue(getAccessTime(((new Random()).nextInt(fileMockSize))) <= MAX_LINE_LENGTH);
+        ArrayList<String> fileMock = new ArrayList<>();
+        Storage storageMock = Mockito.mock(Storage.class);
+        setupStorageMock(fileMock, storageMock);
+        setupInitializer("veryLarge", storageMock);
+        assertTrue(getAccessTime(((new Random()).nextInt(fileMock.size())), storageMock) <= MAX_LINE_LENGTH);
     }
 
 }

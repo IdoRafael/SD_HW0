@@ -1,11 +1,13 @@
 package il.ac.technion.cs.sd.app;
 
 import org.junit.After;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.mockito.Mockito;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.stream.IntStream;
 
@@ -18,32 +20,27 @@ public class GradesTest extends SdHw0Test {
     protected static final int MAX_LINE_LENGTH = 13;
     protected static final int NUMBER_OF_LINES_SLEEP_DURATION = 100;
 
-    protected static int fileMockSize = 0;
-    protected static String[] fileMock = new String[MAX_STUDENTS];
-    protected static Storage storageMock = Mockito.mock(Storage.class);;
 
     protected static String getFileContent(String fileName) throws FileNotFoundException {
         return new Scanner(new File(GradesTest.class.getResource(fileName).getFile())).useDelimiter("\\Z").next();
     }
 
-    protected static void setupInitializer(String fileName) throws FileNotFoundException {
+    protected static void setupInitializer(String fileName, Storage storageMock) throws FileNotFoundException {
         String fileContents = getFileContent(fileName);
         new GradesInitializer(storageMock).setup(fileContents);
     }
 
-    protected static GradesReader setupInitializerAndGetReader(String fileName) throws FileNotFoundException {
-        setupInitializer(fileName);
+    protected static GradesReader setupInitializerAndGetReader(String fileName, Storage storageMock) throws FileNotFoundException {
+        setupInitializer(fileName, storageMock);
         return new GradesReader(storageMock);
     }
 
-    @BeforeClass
-    public static void setupStorageMock() {
+    protected static void setupStorageMock(ArrayList<String> fileMock, Storage storageMock) {
         //appendLine
         Mockito
                 .doAnswer(
                         invocationOnMock -> {
-                            fileMock[fileMockSize] = (String)(invocationOnMock.getArguments()[0]);
-                            ++fileMockSize;
+                            fileMock.add((String)(invocationOnMock.getArguments()[0]));
                             return null;
                         }
                 )
@@ -53,7 +50,7 @@ public class GradesTest extends SdHw0Test {
                 .when(storageMock.read(anyInt()))
                 .thenAnswer(
                         invocationOnMock -> {
-                            String toReturn = fileMock[(int)invocationOnMock.getArguments()[0]];
+                            String toReturn = fileMock.get((int)invocationOnMock.getArguments()[0]);
                             Thread.sleep(min(toReturn.length(),MAX_LINE_LENGTH));
                             return toReturn;
                         }
@@ -61,11 +58,11 @@ public class GradesTest extends SdHw0Test {
         //numberOfLines
         Mockito
                 .when(storageMock.numberOfLines())
-                .thenAnswer(i -> {Thread.sleep(NUMBER_OF_LINES_SLEEP_DURATION);return fileMockSize;});
-    }
-
-    @After
-    public void clear() {
-        fileMockSize = 0;
+                .thenAnswer(
+                        i -> {
+                            Thread.sleep(NUMBER_OF_LINES_SLEEP_DURATION);
+                            return fileMock.size();
+                        }
+                );
     }
 }
