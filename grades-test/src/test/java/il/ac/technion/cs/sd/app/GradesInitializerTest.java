@@ -2,6 +2,7 @@ package il.ac.technion.cs.sd.app;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import static junit.framework.TestCase.assertEquals;
@@ -13,15 +14,15 @@ public class GradesInitializerTest extends GradesTest {
     public void shouldRemoveDuplicates() throws Exception {
         setupInitializer("duplicates");
 
-        assertEquals(1, fileMock.size());
-        assertEquals("123", new Student(fileMock.getFirst()).getId());
+        assertEquals(1, fileMockSize);
+        assertEquals("123", new Student(fileMock[0]).getId());
     }
 
     @Test
     public void shouldLeaveLastGrade() throws Exception {
         setupInitializer("duplicates");
 
-        assertEquals("99", new Student(fileMock.getFirst()).getGrade());
+        assertEquals("99", new Student(fileMock[0]).getGrade());
     }
 
     @Test
@@ -37,8 +38,7 @@ public class GradesInitializerTest extends GradesTest {
                 .sorted()
                 .toArray(Integer[]::new);
 
-        Integer[] actual = fileMock
-                .stream()
+        Integer[] actual = Arrays.stream(Arrays.copyOfRange(fileMock,0, fileMockSize))
                 .map(s -> Integer.valueOf(new Student(s).getId()))
                 .toArray(Integer[]::new);
 

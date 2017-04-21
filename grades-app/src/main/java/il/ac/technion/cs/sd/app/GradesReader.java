@@ -1,6 +1,5 @@
 package il.ac.technion.cs.sd.app;
 
-import java.util.AbstractList;
 import java.util.Collections;
 import java.util.OptionalInt;
 
@@ -25,17 +24,7 @@ public class GradesReader {
 
         try {
             keyFound = Collections.binarySearch(
-                    new AbstractList<Integer>() {
-                        @Override
-                        public Integer get(int index) {
-                            return new Student(storage.read(index)).getIntegerId();
-                        }
-
-                        @Override
-                        public int size() {
-                            return storage.numberOfLines();
-                        }
-                    }
+                    new LazyEvaluationOfStorage(storage)
                     , Integer.valueOf(id)
             );
         } catch (RuntimeException e) {
