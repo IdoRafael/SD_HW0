@@ -8,7 +8,7 @@ import java.util.stream.IntStream;
 
 import static org.junit.Assert.assertEquals;
 
-public class GradesApplicationTest extends GradesTest{
+public class GradesReaderTest extends GradesTest{
 
     private void shouldFind(int id, OptionalInt grade, String fileName) throws FileNotFoundException {
         GradesReader reader = setupInitializerAndGetReader(fileName);
