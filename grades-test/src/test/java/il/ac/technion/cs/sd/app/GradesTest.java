@@ -7,15 +7,16 @@ import org.mockito.Mockito;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.stream.IntStream;
 
 import static java.lang.Math.min;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 
 public class GradesTest extends SdHw0Test {
-    private static final int MAX_STUDENTS = 1000000;
-    private static final int MAX_LINE_LENGTH = 13;
-    private static final int NUMBER_OF_LINES_SLEEP_DURATION = 100;
+    protected static final int MAX_STUDENTS = 1000000;
+    protected static final int MAX_LINE_LENGTH = 13;
+    protected static final int NUMBER_OF_LINES_SLEEP_DURATION = 100;
 
     protected static int fileMockSize = 0;
     protected static String[] fileMock = new String[MAX_STUDENTS];
@@ -32,6 +33,15 @@ public class GradesTest extends SdHw0Test {
 
     protected static GradesReader setupInitializerAndGetReader(String fileName) throws FileNotFoundException {
         setupInitializer(fileName);
+        return new GradesReader(storageMock);
+    }
+
+    protected static GradesReader setupMaxStudentsDatabase() {
+        StringBuilder stringBuilder = new StringBuilder();
+        IntStream.range(0, MAX_STUDENTS)
+                .forEach(i -> stringBuilder.append(String.valueOf(i) + "," + String.valueOf(i % 100) + "\n"));
+        String csvData = stringBuilder.toString();
+        new GradesInitializer(storageMock).setup(csvData);
         return new GradesReader(storageMock);
     }
 
