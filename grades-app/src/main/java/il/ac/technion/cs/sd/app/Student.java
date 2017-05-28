@@ -29,10 +29,6 @@ public class Student {
         return id;
     }
 
-    public Integer getIntegerId() {
-        return Integer.valueOf(id);
-    }
-
     public String toCSVString() {
         return id + "," + grade;
     }

@@ -43,15 +43,15 @@ public class GradesInitializerTest extends GradesTest {
         String fileContents = getFileContent(fileName);
         setupInitializer(fileName, storageMock);
 
-        Integer[] expected = Arrays.stream(fileContents.split("\\n"))
-                .map(s -> Integer.valueOf(new Student(s).getId()))
+        String[] expected = Arrays.stream(fileContents.split("\\n"))
+                .map(s -> new Student(s).getId())
                 .distinct()
                 .sorted()
-                .toArray(Integer[]::new);
+                .toArray(String[]::new);
 
-        Integer[] actual = fileMock.stream()
-                .map(s -> Integer.valueOf(new Student(s).getId()))
-                .toArray(Integer[]::new);
+        String[] actual = fileMock.stream()
+                .map(s -> new Student(s).getId())
+                .toArray(String[]::new);
 
         assertTrue(Arrays.equals(expected,actual));
     }

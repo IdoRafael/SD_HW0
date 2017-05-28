@@ -19,7 +19,7 @@ public class LazyEvaluationOfStorageTest extends GradesTest {
         LazyEvaluationOfStorage lazyEvaluationOfStorage = new LazyEvaluationOfStorage(storageMock);
 
         long start = System.nanoTime();
-        Integer integer = lazyEvaluationOfStorage.get(index);
+        String string = lazyEvaluationOfStorage.get(index);
         return TimeUnit.MILLISECONDS.convert(System.nanoTime()-start, TimeUnit.NANOSECONDS);
     }
 

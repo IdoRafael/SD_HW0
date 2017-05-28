@@ -3,7 +3,7 @@ package il.ac.technion.cs.sd.app;
 import java.util.AbstractList;
 import java.util.RandomAccess;
 
-public class LazyEvaluationOfStorage extends AbstractList<Integer> implements RandomAccess {
+public class LazyEvaluationOfStorage extends AbstractList<String> implements RandomAccess {
     private Storage storage;
 
     public LazyEvaluationOfStorage(Storage storage) {
@@ -11,8 +11,8 @@ public class LazyEvaluationOfStorage extends AbstractList<Integer> implements Ra
     }
 
     @Override
-    public Integer get(int index) {
-        return new Student(storage.read(index)).getIntegerId();
+    public String get(int index) {
+        return new Student(storage.read(index)).getId();
     }
 
     @Override

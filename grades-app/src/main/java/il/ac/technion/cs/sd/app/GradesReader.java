@@ -25,7 +25,7 @@ public class GradesReader {
         try {
             keyFound = Collections.binarySearch(
                     new LazyEvaluationOfStorage(storage)
-                    , Integer.valueOf(id)
+                    , id
             );
         } catch (RuntimeException e) {
             throw e;
